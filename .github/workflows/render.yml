@@ -28,6 +28,8 @@ jobs:
   release:
     needs: render
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Download all PDFs
