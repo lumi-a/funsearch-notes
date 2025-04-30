@@ -1,5 +1,4 @@
 #import "@preview/diagraph:0.3.3": render as graphvizRender
-#import "@preview/quick-maths:0.1.0": shorthands
 
 #let font-text = ("Fira Sans", "Libertinus Serif")
 #let font-math = ("Libertinus Math", "New Computer Modern Math")
@@ -61,9 +60,6 @@
       it
     }
   }
-
-  #show: shorthands.with(("∣", $#h(0.25em)mid(|)#h(0.25em)$), ("⎵", h(0.5em)))
-
   #body
 ]
 
