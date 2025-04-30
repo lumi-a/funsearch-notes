@@ -14,13 +14,17 @@ jobs:
       - run: fontist install "Fira Code"
       
       - uses: typst-community/setup-typst@v4
-      - name: Compile kmedian.typ
-        run: typst compile kmedian.typ kmedian.pdf --font-path ~/.fontist/fonts
+      - run: typst compile kmedian.typ kmedian.pdf --font-path ~/.fontist/fonts
+      - run: typst compile generalised-gasoline.typ generalised-gasoline.pdf --font-path ~/.fontist/fonts
       
       - uses: actions/upload-artifact@v4
         with:
           name: kmedian
           path: kmedian.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: generalised-gasoline
+          path: generalised-gasoline.pdf
           
       - name: Get current date
         id: timestamp
@@ -34,4 +38,4 @@ jobs:
           gh release create "v$VERSION" \
             --title "PDFs rendered on $VERSION" \
             --notes "Rendered on $(date +'%Y-%m-%d %H:%M:%S') via [github-actions](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})." \
-            kmedian.pdf
+            kmedian.pdf generalised-gasoline.pdf
