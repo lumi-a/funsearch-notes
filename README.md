@@ -5,3 +5,5 @@ View rendered PDFs in the [releases](https://github.com/lumi-a/funsearch-notes/r
 ```sh
 typst compile kmedian.typ  # Outputs kmedian.pdf
 ```
+
+You might need to install the fonts Fira Sans, Libertinus, and Fira Code.
