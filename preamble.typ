@@ -5,48 +5,36 @@
 #let sans-serif = "Fira Sans"
 #let sansserif = sans-serif // for math-mode complications
 
-#let blue = rgb("#47A"); #let Blue = body => { set text(blue); body }
-#let cyan = rgb("#6CE"); #let Cyan = body => { set text(cyan); body }
-#let green = rgb("#283"); #let Green = body => { set text(green); body }
-#let yellow = rgb("#CB4"); #let Yellow = body => { set text(yellow); body }
-#let red = rgb("#E67"); #let Red = body => { set text(red); body }
-#let purple = rgb("#A37"); #let Purple = body => { set text(purple); body }
-#let gray = rgb("#BBB"); #let Gray = body => { set text(gray); body }
+#let blue = rgb("#47A"); #let Blue = body => {
+  set text(blue)
+  body
+}
+#let cyan = rgb("#6CE"); #let Cyan = body => {
+  set text(cyan)
+  body
+}
+#let green = rgb("#283"); #let Green = body => {
+  set text(green)
+  body
+}
+#let yellow = rgb("#CB4"); #let Yellow = body => {
+  set text(yellow)
+  body
+}
+#let red = rgb("#E67"); #let Red = body => {
+  set text(red)
+  body
+}
+#let purple = rgb("#A37"); #let Purple = body => {
+  set text(purple)
+  body
+}
+#let gray = rgb("#BBB"); #let Gray = body => {
+  set text(gray)
+  body
+}
 
-#let graphvizMetaGraph(src, graphKind: "", ..args) = graphvizRender(graphKind + " {" + src
- 
-.replace("→", "->")
-.replace("⇒", "=>") 
- 
-.replace("[gray]", "[color=gray]")
-.replace("[blue]", "[color=blue]")
-.replace("[cyan]", "[color=cyan]")
-.replace("[green]", "[color=green]")
-.replace("[yellow]", "[color=yellow]")
-.replace("[red]", "[color=red]")
-.replace("[purple]", "[color=purple]")
-.replace("[gray]", "[color=gray]")
- 
-.replace("Blue", blue.to-hex())
-.replace("Cyan", cyan.to-hex())
-.replace("Green", green.to-hex())
-.replace("Yellow", yellow.to-hex())
-.replace("Red", red.to-hex())
-.replace("Purple", purple.to-hex())
- 
-.replace("blue", "\"" + blue.to-hex() + "\"")
-.replace("cyan", "\"" + cyan.to-hex() + "\"")
-.replace("green", "\"" + green.to-hex() + "\"")
-.replace("yellow", "\"" + yellow.to-hex() + "\"")
-.replace("red", "\"" + red.to-hex() + "\"")
-.replace("purple", "\"" + purple.to-hex() + "\"")
- 
-.replace(regex("(.*)==(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[penwidth=\"2pt\"]")
-.replace(regex("(.*)=>(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[penwidth=\"2pt\"]")
-.replace(regex("(.*)\.\.>(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[style = dotted]")
-.replace(regex("(.*)\.\.(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[style = dotted]")
-.replace(regex("(.*)- -(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[style = \"dashed\"]")
-.replace(regex("(.*)- ->(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[style = \"dashed\"]") + "}", engine: "sfdp", ..args)
+#let graphvizMetaGraph(src, graphKind: "", ..args) = graphvizRender(graphKind + " {" + src.replace("→", "->").replace("⇒", "=>").replace("[gray]", "[color=gray]").replace("[blue]", "[color=blue]").replace("[cyan]", "[color=cyan]").replace("[green]", "[color=green]").replace("[yellow]", "[color=yellow]").replace("[red]", "[color=red]").replace("[purple]", "[color=purple]").replace("[gray]", "[color=gray]").replace("Blue", blue.to-hex()).replace("Cyan", cyan.to-hex()).replace("Green", green.to-hex()).replace("Yellow", yellow.to-hex()).replace("Red", red.to-hex()).replace("Purple", purple.to-hex()).replace("blue", "\"" + blue.to-hex() + "\"").replace("cyan", "\"" + cyan.to-hex() + "\"").replace("green", "\"" + green.to-hex() + "\"").replace("yellow", "\"" + yellow.to-hex() + "\"").replace("red", "\"" + red.to-hex() + "\"").replace("purple", "\"" + purple.to-hex() + "\"").replace(regex("(.*)==(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[penwidth=\"2pt\"]").replace(regex("(.*)=>(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[penwidth=\"2pt\"]").replace(regex("(.*)\.\.>(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[style = dotted]").replace(regex("(.*)\.\.(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[style = dotted]").replace(regex("(.*)- -(.*)"), matches => matches.captures.at(0) + "--" + matches.captures.at(1) + "[style = \"dashed\"]").replace(regex("(.*)- ->(.*)"), matches => matches.captures.at(0) + "->" + matches.captures.at(1) + "[style = \"dashed\"]") + "}", engine: "sfdp", ..args)
 #let digraph = graphvizMetaGraph.with(graphKind: "digraph")
 #let graph = graphvizMetaGraph.with(graphKind: "graph")
 
@@ -54,16 +42,17 @@
   #set page(margin: (left: 20mm, right: 20mm, top: 20mm, bottom: 20mm), numbering: "1", number-align: center)
   #set list(indent: 1em)
   #set enum(indent: 1em, numbering: "1.", full: true)
-   
+
   #set text(font: sans-serif, lang: "en")
   #show raw: set text(font: monospace)
   #show math.equation: set text(font: "Libertinus Math")
   #show link: set text(fill: blue)
   #show link: underline
-   
+
   #set par(leading: 0.85em, spacing: 1.25em)
-   
-  #show ref: it => { // Fix equation references:
+
+  #show ref: it => {
+    // Fix equation references:
     let eq = math.equation
     let el = it.element
     if el != none and el.func() == eq {
@@ -72,9 +61,9 @@
       it
     }
   }
-   
+
   #show: shorthands.with(("∣", $#h(0.25em)mid(|)#h(0.25em)$), ("⎵", h(0.5em)))
-   
+
   #body
 ]
 
