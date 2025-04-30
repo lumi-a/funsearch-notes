@@ -32,7 +32,8 @@ jobs:
       - name: Download all PDFs
         uses: actions/download-artifact@v4
         with:
-          name: ''
+          path: "pdf"
+          merge-multiple: true  # Otherwise, we'd get multiple dirs under the current path
       - name: Get timestamp
         id: timestamp
         run: echo "timestamp=$(date +'%Y-%m-%d-%H.%M')" >> $GITHUB_OUTPUT
@@ -44,4 +45,4 @@ jobs:
           gh release create "v$VERSION" \
             --title "PDFs rendered on $VERSION" \
             --notes "Rendered on $(date +'%Y-%m-%d %H:%M:%S') via [github-actions](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})." \
-            *.pdf
+            pdf/*.pdf
