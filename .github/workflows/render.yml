@@ -32,6 +32,6 @@ jobs:
         run: |
           VERSION="${{ steps.timestamp.outputs.timestamp }}"
           gh release create "v$VERSION" \
-            --title "Release v$VERSION" \
-            --notes "Automated release generated on $(date +'%Y-%m-%d %H:%M:%S')" \
+            --title "PDFs rendered on $VERSION" \
+            --notes "Rendered on $(date +'%Y-%m-%d %H:%M:%S') via [github-actions]()." \
             kmedian.pdf
