@@ -24,7 +24,7 @@ jobs:
           
       - name: Get current date
         id: timestamp
-        run: echo "timestamp=$(date +'%Y-%m-%d-%H%M')" >> $GITHUB_OUTPUT
+        run: echo "timestamp=$(date +'%Y-%m-%d-%H.%M')" >> $GITHUB_OUTPUT
         
       - name: Create Release
         env:
