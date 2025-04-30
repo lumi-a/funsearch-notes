@@ -1,35 +1,41 @@
-name: render
 on: push
 jobs:
   render:
-    permissions:
-      contents: write
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file: [ kmedian, generalised-gasoline ]
     steps:
       - uses: actions/checkout@v4
-      
       - uses: fontist/setup-fontist@v2
-      - run: fontist install "Fira Sans"
-      - run: fontist install "Libertinus"
-      - run: fontist install "Fira Code"
-      
+      - run: |
+          fontist install "Fira Sans"
+          fontist install "Libertinus"
+          fontist install "Fira Code"
       - uses: typst-community/setup-typst@v4
-      - run: typst compile kmedian.typ kmedian.pdf --font-path ~/.fontist/fonts
-      - run: typst compile generalised-gasoline.typ generalised-gasoline.pdf --font-path ~/.fontist/fonts
-      
-      - uses: actions/upload-artifact@v4
+
+      - name: Compile ${{ matrix.file }}.typ
+        run: |
+          typst compile "${{ matrix.file }}.typ" "${{ matrix.file }}.pdf" \
+            --font-path ~/.fontist/fonts
+
+      - name: Upload ${{ matrix.file }}.pdf
+        uses: actions/upload-artifact@v4
         with:
-          name: kmedian
-          path: kmedian.pdf
-      - uses: actions/upload-artifact@v4
+          name: ${{ matrix.file }}
+          path: "${{ matrix.file }}.pdf"
+
+  release:
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all PDFs
+        uses: actions/download-artifact@v4
         with:
-          name: generalised-gasoline
-          path: generalised-gasoline.pdf
-          
-      - name: Get current date
+          name: ''
+      - name: Get timestamp
         id: timestamp
         run: echo "timestamp=$(date +'%Y-%m-%d-%H.%M')" >> $GITHUB_OUTPUT
-        
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -38,4 +44,4 @@ jobs:
           gh release create "v$VERSION" \
             --title "PDFs rendered on $VERSION" \
             --notes "Rendered on $(date +'%Y-%m-%d %H:%M:%S') via [github-actions](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})." \
-            kmedian.pdf generalised-gasoline.pdf
+            *.pdf
