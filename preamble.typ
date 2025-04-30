@@ -1,9 +1,9 @@
-#import "@preview/diagraph:0.3.0": render as graphvizRender
+#import "@preview/diagraph:0.3.3": render as graphvizRender
 #import "@preview/quick-maths:0.1.0": shorthands
 
-#let monospace = "Fira Code Arctic"
-#let sans-serif = "Fira Sans"
-#let sansserif = sans-serif // for math-mode complications
+#let font-text = ("Fira Sans", "Libertinus Serif")
+#let font-math = ("Libertinus Math", "New Computer Modern Math")
+#let font-monospace = ("Fira Code Arctic", "DejaVu Sans Mono")
 
 #let blue = rgb("#47A"); #let Blue = body => {
   set text(blue)
@@ -43,9 +43,9 @@
   #set list(indent: 1em)
   #set enum(indent: 1em, numbering: "1.", full: true)
 
-  #set text(font: sans-serif, lang: "en")
-  #show raw: set text(font: monospace)
-  #show math.equation: set text(font: "Libertinus Math")
+  #set text(font: font-text, lang: "en")
+  #show raw: set text(font: font-monospace)
+  #show math.equation: set text(font: font-math)
   #show link: set text(fill: blue)
   #show link: underline
 
