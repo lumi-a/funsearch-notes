@@ -19,3 +19,20 @@ jobs:
         with:
           name: kmedian
           path: kmedian.pdf
+          
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d-%H%M')" >> $GITHUB_OUTPUT
+        
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v${{ steps.date.outputs.DATE }}
+          name: Release ${{ steps.date.outputs.DATE }}
+          files: kmedian.pdf
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
