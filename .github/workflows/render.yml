@@ -5,6 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      - uses: fontist/setup-fontist@v2
+      - run: fontist install "Fira Code"
+      - run: fontist install "Libertinus"
+      - run: fontist install "Fira Sans"
+      
       - uses: typst-community/setup-typst@v4
       - name: Compile kmedian.typ
-        run: typst compile kmedian.typ
+        run: typst compile kmedian.typ kmedian.pdf

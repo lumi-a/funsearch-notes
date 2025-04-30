@@ -2,7 +2,7 @@
 
 #let font-text = ("Fira Sans", "Libertinus Serif")
 #let font-math = ("Libertinus Math", "New Computer Modern Math")
-#let font-monospace = ("Fira Code Arctic", "DejaVu Sans Mono")
+#let font-monospace = ("Fira Code Arctic", "Fira Code", "DejaVu Sans Mono")
 
 #let blue = rgb("#47A"); #let Blue = body => {
   set text(blue)
