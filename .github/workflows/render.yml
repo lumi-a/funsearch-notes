@@ -13,7 +13,7 @@ jobs:
       
       - uses: typst-community/setup-typst@v4
       - name: Compile kmedian.typ
-        run: typst compile kmedian.typ kmedian.pdf
+        run: typst compile kmedian.typ kmedian.pdf --font-path ~/.fontist/fonts
       
       - uses: actions/upload-artifact@v4
         with:
