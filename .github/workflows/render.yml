@@ -6,9 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: typst-community/setup-typst@v4
-      - name: Compile all .typ files
-        run: |
-          for file in $(find . -name "*.typ"); do
-            echo "Compiling $file"
-            typst compile "$file"
-          done
+      - name: Compile kmedian.typ
+        run: typst compile kmedian.typ
