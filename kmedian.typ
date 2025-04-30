@@ -1,5 +1,5 @@
 #import "preamble.typ": *; #show: preamble
-#import "@preview/cetz:0.3.2"
+#import "@preview/cetz:0.3.4"
 #import "@preview/cetz-plot:0.1.1": plot, chart
 
 Fix the dimension $d≥2$. Define $c ≔ (√(5d^2 -2d +1)+d-1) / 2$. We believe #link("https://www.wolframalpha.com/input?i=(%E2%88%9A(5d%5E2%20-2d%20%2B1)%2Bd-1)%2F2%20%3E%20d")[WolframAlpha] that $c>d$.
