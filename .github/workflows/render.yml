@@ -13,6 +13,8 @@ jobs:
           fontist install "Libertinus"
           fontist install "Fira Code"
       - uses: typst-community/setup-typst@v4
+        with:
+          typst-version: ^0.13.1
 
       - name: Compile ${{ matrix.file }}.typ
         run: |

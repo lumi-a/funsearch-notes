@@ -1,4 +1,4 @@
-Notes for thesis on [funsearch](https://github.com/lumi-a/funsearch). Written in [typst](https://typst.app/), currently version `0.13.0`.
+Notes for thesis on [funsearch](https://github.com/lumi-a/funsearch). Written in [typst](https://typst.app/), currently version `0.13.1`.
 
 View rendered PDFs in the [releases](https://github.com/lumi-a/funsearch-notes/releases), or render them yourself:
 
