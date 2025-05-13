@@ -100,7 +100,7 @@ $
 
 These look intimidating. @generating-code contains python-code generating these instances.
 
-Both $X$ and $Y$ have length $2(2^k - 1)(d-1)$. The sum of the vectors in $X$ also equals the sum of the vectors in $Y$, which we won't prove here, but will _implicitly_ prove in @opt-upper-bound.
+Both $X$ and $Y$ have length $n=2(2^k - 1)(d-1)$. The sum of the vectors in $X$ also equals the sum of the vectors in $Y$, which we won't prove here, but will _implicitly_ prove in @opt-upper-bound.
 
 = The iterative-rounding algorithm has approximation-ratio $≥d$
 
