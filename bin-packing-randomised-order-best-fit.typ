@@ -132,7 +132,7 @@ After thinking about potential proofs, I considered that the `0.01, 0.02` might 
   ```,
   caption: [Approximation-ratio $≈1.495531$],
 )
-The approximation-ratio decreased, but it was still extremely close to $1.5$, and the structure was cleaner now. Trying out different values for `a` and `b` indicated that coprime pairs maintained high approximation-ratios. This was enough to come up with a sketch for the proof.
+Even though the approximation-ratio decreased, it remained close to $1.5$, despite the instance's structure being simpler. Trying out different values for `a` and `b` indicated that coprime pairs of numbers maintained high approximation-ratios. This was enough to come up with a sketch for the proof.
 
 
 

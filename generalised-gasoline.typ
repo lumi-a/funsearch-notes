@@ -1,4 +1,5 @@
 #import "preamble.typ": *; #show: preamble
+#import "@preview/lilaq:0.3.0" as lq
 
 #set heading(numbering: "1.")
 #set outline.entry(fill: line(length: 100%, stroke: black.lighten(50%)))
@@ -30,9 +31,9 @@ We relax the ILP's integrality-constraints and rewrite it into vector-form (whic
 $
   min thick ⟨(𝟘^T, dots.c, 𝟘^T, -1, 1), v⟩ quad "s.t."&\
   mat(
-    -x_1 S, -x_2 S, dots.c, -x_n S, , 𝟘, 𝟙;
+    -x_1 L, -x_2 L, dots.c, -x_n L, , 𝟘, 𝟙;
      //
-    x_1 S, x_2 S, dots.c, x_n S, , -𝟙, 𝟘;
+    x_1 L, x_2 L, dots.c, x_n L, , -𝟙, 𝟘;
      //
     -I, -I, dots.c, -I, , 𝟘, 𝟘;
      //
@@ -55,10 +56,10 @@ Now that the LP is in a neat form, dualising is easy:
 $
   max quad y_(1:1)⋅a_1 +sum_(i=2)^n y_(1:i)⋅(a_i - b_(i-1)) -⟨(s_1,…,s_n),𝟙⟩-⟨(t_1,…,t_n),𝟙⟩ quad"s.t."\
   mat(
-    -x_1 S^T, x_1 S^T, -I, -𝟙, 𝟘, dots.c, 𝟘, I, ;
-    -x_2 S^T, x_2 S^T, -I, 𝟘, -𝟙, dots.down, dots.v, , I;
+    -x_1 L^T, x_1 L^T, -I, -𝟙, 𝟘, dots.c, 𝟘, I, ;
+    -x_2 L^T, x_2 L^T, -I, 𝟘, -𝟙, dots.down, dots.v, , I;
     dots.v, dots.v, dots.v, dots.v, dots.down, dots.down, 𝟘, , , dots.down;
-    -x_n S^T, x_n S^T, -I, 𝟘, dots.c, 𝟘, -𝟙, , , , I; ;
+    -x_n L^T, x_n L^T, -I, 𝟘, dots.c, 𝟘, -𝟙, , , , I; ;
     𝟘^T, -𝟙^T, 𝟘^T, 0, dots.c, 0, 0, 𝟘^T, dots.c, 𝟘^T, 𝟘^T;
     𝟙^T, 𝟘^T, 𝟘^T, 0, dots.c, 0, 0, 𝟘^T, dots.c, 𝟘^T, 𝟘^T;
     augment: #(vline: (1, 2, 3, 7))
@@ -100,7 +101,7 @@ $
 
 These look intimidating. @generating-code contains python-code generating these instances.
 
-Both $X$ and $Y$ have length $n=2(2^k - 1)(d-1)$. The sum of the vectors in $X$ also equals the sum of the vectors in $Y$, which we won't prove here, but will _implicitly_ prove in @opt-upper-bound.
+Both $X$ and $Y$ have length $n = 2(2^k - 1)(d-1)$. The sum of the vectors in $X$ also equals the sum of the vectors in $Y$, which we won't prove here, but will _implicitly_ prove in @opt-upper-bound.
 
 = The iterative-rounding algorithm has approximation-ratio $≥d$
 
@@ -147,11 +148,77 @@ Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we 
 == The iterative rounding algorithm achieves value #Green[somewhere around] $≥ 2^k d$
 _Claim_: The iterative rounding algorithm sets the first $2⋅(2^(k-1)-1)(d-1)$ elements of $X$ in place. That is, it sets $Z_(l,l)=1$ for $1≤l≤2⋅(2^(k-1)-1)(d-1)$.
 
-_Proof_: Assume the algorithm already set $Z_(l,l)=1$ for $1≤l≤L$, for some fixed $L ≤ 2⋅(2^(k-1)-1)(d-1)$. The algorithm will now try to set all $Z_(m,L+1)=1$ for $L+1≤m≤n$ and will finally choose the one with smallest LP-value, breaking ties by choosing the smallest $m$. We will therefore, for all choices of $m$, calculate lower-bounds on the LP-value via the dual LP, conclude that $m=L+1$ achieves the smallest LP-value, and (being the smallest $m$) also wins the tie-break.
+_Proof_: Assume the algorithm already set $Z_(l,l)=1$ for $1≤l≤L$, for some fixed $L ≤ 2⋅(2^(k-1)-1)(d-1)$. The algorithm will now try to set all $Z_(m,L+1)=1$ for $L+1≤m≤n$ and will finally choose the one with smallest LP-value, breaking ties by choosing the smallest $m$. We will therefore:
++ Provide lower bounds on the LP-value for all choices of $m$, which we can do via the dual LP
++ Provide an upper bound on the LP-value for $m=L+1$ by providing an explicit solution
++ Conclude that $m=L+1$ achieves the smallest LP-value, and (being the smallest $m$) also wins the tie-break.
 
-- #Green[Todo]
+=== Lower Bounds
+#Green[Todo]
 
+=== Explicit solution for $m=L+1$
+Let $I_j$ be the $j×j$ identity-matrix, $𝟘_(i,j)$ the $i×j$ everywhere-$0$-matrix, and $𝕀_(j)≔mat(1, dots.c, 1; dots.v, dots.down, dots.v; 1, dots.c, 1)∈ℝ^(j×j)$. Put:
+$
+  Z
+  quad=quad
+  mat(
+    I_m, 𝟘_(m,n-m);
+    𝟘_(n-m,m), 𝕀_(n-m)\/(n-m);
+    gap: #1em,
+  )
+$
 
+= Empirical results
+Running the iterative-rounding algorithm on the instance and comparing its solution to the calculated optimum. The horizontal axis is $n = 2(2^k - 1)(d-1)$, the size of the instance.
+
+#let plots = file => {
+  let data = json(file)
+  let colormap = if (file.contains("2")) {
+    lq.color.map.petroff8.slice(2)
+  } else {
+    lq.color.map.petroff10
+  }
+  for d in data.keys() {
+    let D = data.at(d)
+
+    let simplify(x, n: 1) = {
+      if calc.abs(calc.round(x * n) - (x * n)) < 0.00001 {
+        if n != 1 {
+          $#(x * n) / #n$
+        } else { $#x$ }
+      } else {
+        simplify(x, n: n + 1)
+      }
+    }
+
+    let apx-slope = (D.at("apx").at(-1) - D.at("apx").at(0)) / (D.at("lengths").at(-1) - D.at("lengths").at(0))
+    let apx-intercept = D.at("apx").at(0) - apx-slope * D.at("lengths").at(0)
+
+    let opt-slope = (D.at("opt").at(-1) - D.at("opt").at(0)) / (D.at("lengths").at(-1) - D.at("lengths").at(0))
+    let opt-intercept = D.at("opt").at(0) - opt-slope * D.at("lengths").at(0)
+    figure(
+      v(1em)
+        + lq.diagram(
+          ylabel: [Value],
+          width: 10cm,
+          xaxis: (lim: (0, auto)),
+          yaxis: (lim: (0, auto)),
+          legend: (position: top + left),
+          cycle: colormap,
+          lq.plot(D.at("lengths"), D.at("apx"), mark: "s", label: [Iterative Rounding]),
+          lq.plot(D.at("lengths"), D.at("opt"), mark: "x", label: [Optimal Value]),
+        ),
+      caption: [For $d=#d$, the value of iterative rounding empirically follows $#simplify(apx-slope) n + #simplify(apx-intercept)$, the optimal value empirically follows $#simplify(opt-slope) n + #simplify(opt-intercept)$],
+    )
+  }
+}
+
+#plots("empirical-values-d.json")
+
+== Empirical values after scaling the instance by $op("diag")(1,2,…,2)$
+When scaling the second through $d$-th coordinate of both $X$ and $Y$, the approximation-ratio seems to increase even more. A proof seems more difficult, because the iterative-rounding-algorithm fixes the $Z_(i,j)$ in a less tidy order.
+
+#plots("empirical-values-2d.json")
 
 = Code
 
