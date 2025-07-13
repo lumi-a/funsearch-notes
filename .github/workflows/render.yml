@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: [ kmedian, generalised-gasoline, bin-packing-randomised-order-best-fit ]
+        file: [ kmedian, generalised-gasoline, bin-packing-randomised-order-best-fit, nemhauser-ullmann ]
     steps:
       - uses: actions/checkout@v4
       - uses: fontist/setup-fontist@v2
