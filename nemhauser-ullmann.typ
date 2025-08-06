@@ -38,3 +38,36 @@ Consider the subsets of items from $I_1$. The sum of the weights of such subsets
     quad=quad 2^(n+1) + 2^(n-1) + 2.
   $
 - Thus, $P(J) = O(n 2^n)$, but $P(I) ≤ O(2^n)$, so for the ratio we have $P(J)/P(I) ≥ O(n)$.
+
+#pagebreak()
+== Trying to make this super-polynomial instead of linear
+Fix some $k≥1$. Consider the the instance for $n ≥ k$ #Green[this requirement "$n >=k$" is not relevant for the definition, it's just for cleanliness of a binomial coefficient further down the line]:
+$
+  I ≔ lr(size: #50%, [overbrace(#[$vec(2^(n-1), 2^(n-1)), …, vec(2^0, 2^0)$], I_1),quad overbrace(underbrace(#[$vec(1\/k, 1\/k - ε),…,vec(1\/k, 1\/k - ε)$], n "times"), I_2),quad overbrace(#[$vec(2^(-1), 2^(-1)), …, vec(2^(-k), 2^(-k))$], I_3)])
+$
+The sizes are $abs(I_1) =abs(I_2) = n$ and $abs(I_3) = k-1$, so $O(n)$ for fixed $k$.
+
+- Claim: If a packing $A∈P([I_1, I_2])$ does not contain all items from $I_1$, it contains at most $(k-1)$ items from $I_2$.
+  - Subsets of $I_1$ can be represented as binary numbers. If $A$ does not contain all items from $I_1$, we can obtain a different packing $A′$ by: Incrementing this binary number and removing $k$ items from $I_2$. This changes the weights and profits as follows:
+    $
+      op("Weight")(A′) - op("Weight")(A) & = 1 - k⋅1/k       &       = 0 \
+      op("Profit")(A′) - op("Profit")(A) & = 1 - k⋅(1/k - ε) & = k ε > 0
+    $
+
+    Thus, $A′$ dominates $A$.
+- Conclusion: #Green[This probably needs some explanation? I just showed that $P([I_1, I_2])$ is a subset of the following, but not the equality. Also, the set-notation "$B ⊆ I_2$" is awkward because $I_2$ is not a set but a list of $n$ identical items.]
+  $
+    P([I_1, I_2])
+    quad=quad {A ∪ B mid(|) A ⊊ I_1, B⊆I_2 "with" abs(B) < k}
+    med med∪med med {I_1 ∪ B mid(|) B⊆I_2}
+  $
+
+  Hence, #Green[This is a binomial coefficient now] $P([I_1,I_2]) = (2^n -1) ⋅ binom(n, k) + 2^n$
+
+The same argument (it's _exactly_ the same argument, because $I_3 ∪ I_1$ has the same structure as $I_1$. Read: I have been too lazy to parametrise the above proof so far.) shows that:
+$
+  P([I_1, I_2, I_3])
+  "is something like" (2^(n+k) -1)
+$
+
+Perfect, $O(n^k)$, we're done here.
