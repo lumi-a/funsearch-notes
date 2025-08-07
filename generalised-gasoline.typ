@@ -140,6 +140,13 @@ Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we 
     Ỹ ≔ (∑_(j=2)^d [u_(i+1) e_1 + e_j]) + (∑_(j=2)^d [u_(i+1) e_1 + e_j])
   $
   These make up the remainder of $π(X)$ and the remainder of $Y$. As we will show next, the prefix-sums of $X̃$ and $Ỹ$ sum to $0$, meaning this covers all the prefix-sums of the remainder of $π(X)$ and the remainder of $Y$.
+  - Regarding the first component, we have:
+    $
+      (X̃-Ỹ)_1
+      = (d-1) 2^k e_1 + u_i e_1 - 2(d-1) u_(i+1) e_1
+    $
+    By #Green[That one equality that Lucas already proved, i.e. $2 u_(i+1) = 2^k + u_i$], this is $0$.
+  
 
   #Green[Todo]
 
