@@ -126,7 +126,7 @@ $
 $
 Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we can always skip the first two elements when calculating the next prefix-sums.
 
-- The proof that this applies to the first $2d$ prefix-sums is the same as the four equations above.
+- The proof that this applies to the first $2(d-1)$ prefix-sums is the same as the four equations above.
 - The proof that this applies to the remaining prefix-sums: Having removed the initial elements, the remainder of $π(X)$ and $Y$ look like this (we do an index-shift on $Y$'s $i$-sum):
   $
     "remainder of" π(X) = sum_(i=1)^(k-1) sum_(1)^(2^i) sum_(j=2)^d [2^k e_1,thick u_i e_1 + 2 e_j],
@@ -153,7 +153,7 @@ Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we 
       = 0.
     $
   
-  Finally, we show that the intermittent prefix-sums are bounded.
+  Finally, we show that the intermittent prefix-sums are bounded
 
   #Green[Todo]
 
@@ -162,7 +162,7 @@ Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we 
 == The iterative rounding algorithm achieves value #Green[somewhere around] $≥ 2^k d$
 _Claim_: The iterative rounding algorithm sets the first $2⋅(2^(k-1)-1)(d-1)$ elements of $X$ in place. That is, it sets $Z_(l,l)=1$ for $1≤l≤2⋅(2^(k-1)-1)(d-1)$.
 
-_Proof_: Assume the algorithm already set $Z_(l,l)=1$ for $1≤l≤L$, for some fixed $L ≤ 2⋅(2^(k-1)-1)(d-1)$. The algorithm will now try to set all $Z_(m,L+1)=1$ for $L+1≤m≤n$ and will finally choose the one with smallest LP-value, breaking ties by choosing the smallest $m$. We will therefore:
+_Proof_: Assume the algorithm already set $Z_(l,l)=1$ for $1≤l≤L$, for some fixed $L < 2⋅(2^(k-1)-1)(d-1)$. The algorithm will now try to set all $Z_(m,L+1)=1$ for $L+1≤m≤n$ and will finally choose the one with smallest LP-value, breaking ties by choosing the smallest $m$. We will therefore:
 + Provide lower bounds on the LP-value for all choices of $m$, which we can do via the dual LP
 + Provide an upper bound on the LP-value for $m=L+1$ by providing an explicit solution
 + Conclude that $m=L+1$ achieves the smallest LP-value, and (being the smallest $m$) also wins the tie-break.
