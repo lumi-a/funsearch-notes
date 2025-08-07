@@ -145,8 +145,15 @@ Indeed, $π(X)_1 - Y_1 + π(X)_2 - Y_2$. This is excellent, because it means we 
       (X̃-Ỹ)_1
       = (d-1) 2^k e_1 + u_i e_1 - 2(d-1) u_(i+1) e_1
     $
-    By #Green[That one equality that Lucas already proved, i.e. $2 u_(i+1) = 2^k + u_i$], this is $0$.
+    By #Green[that one equality that Lucas already proved, i.e. $2 u_(i+1) = 2^k + u_i$], this is $0$.
+  - Regarding any other component $j in {2,...,d}$:
+    $
+      (X̃-Ỹ)_j
+      = (d-1) 2e_j - 2(d-1) e_j
+      = 0.
+    $
   
+  Finally, we show that the intermittent prefix-sums are bounded.
 
   #Green[Todo]
 
